@@ -1,0 +1,75 @@
+# ==============================================================================
+# Dependency directories
+# ==============================================================================
+node_modules/
+jspm_packages/
+.pnpm-store/
+
+# ==============================================================================
+# Build & Output directories
+# ==============================================================================
+# React / Frontend builds
+dist/
+build/
+.rsc/
+
+# Express / Backend TypeScript compilation output
+out/
+lib/
+
+# ==============================================================================
+# Environment Variables & Secrets (CRITICAL for security)
+# ==============================================================================
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.env
+!.env.example
+
+# ==============================================================================
+# Database & Drizzle ORM artifacts
+# ==============================================================================
+# Exclude actual database dumps or SQLite files if used locally
+*.db
+*.db-journal
+*.sqlite
+
+# NOTE: Do NOT ignore the `drizzle/` folder containing migrations! 
+# Your migrations need to be committed so they can run on deployment.
+# However, you can ignore drizzle-kit's internal cache if it acts up:
+.drizzle/
+
+# ==============================================================================
+# Logs & Diagnostic Data
+# ==============================================================================
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# ==============================================================================
+# IDE, Editors, and OS-specific files
+# ==============================================================================
+# VS Code
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# WebStorm / IntelliJ
+.idea/
+
+# Operating Systems
+.DS_Store
+Thumbs.db
+
+# ==============================================================================
+# Testing & Coverage
+# ==============================================================================
+coverage/
+.nyc_output/
+.playwright/
