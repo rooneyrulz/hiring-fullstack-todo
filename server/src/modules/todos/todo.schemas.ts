@@ -4,7 +4,12 @@ const TITLE_MAX = 200;
 const DESCRIPTION_MAX = 2000;
 
 const title = z
-    .string("Title must be a string")
+    .string({
+        error: (issue) =>
+            issue.input === undefined
+                ? "Title is required"
+                : "Title must be a string",
+    })
     .trim()
     .min(1, "Title is required")
     .max(TITLE_MAX, `Title must be at most ${TITLE_MAX} characters`);
