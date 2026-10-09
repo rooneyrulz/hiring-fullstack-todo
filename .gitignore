@@ -15,7 +15,7 @@ build/
 
 # Express / Backend TypeScript compilation output
 out/
-lib/
+
 
 # ==============================================================================
 # Environment Variables & Secrets (CRITICAL for security)
