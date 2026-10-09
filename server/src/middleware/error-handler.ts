@@ -32,7 +32,7 @@ function formatZodIssues(error: ZodError) {
     });
 }
 
-export const errorHandler: ErrorRequestHandler = (err, _req, res, next) => {
+export const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
     if (res.headersSent) {
         next(err);
         return;
@@ -83,7 +83,7 @@ export const errorHandler: ErrorRequestHandler = (err, _req, res, next) => {
     }
 
     if (status >= 500) {
-        console.error(err);
+        req.log.error({ err }, "Unhandled error");
     }
 
     res.status(status).json(body);
