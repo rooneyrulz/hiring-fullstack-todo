@@ -36,3 +36,8 @@ export const toggleTodoDone: RequestHandler<TodoIdParams> = async (
     const todo = await todoService.toggleTodoDone(req.params.id);
     res.json({ data: todo });
 };
+
+export const deleteTodo: RequestHandler<TodoIdParams> = async (req, res) => {
+    await todoService.deleteTodo(req.params.id);
+    res.status(204).end();
+};

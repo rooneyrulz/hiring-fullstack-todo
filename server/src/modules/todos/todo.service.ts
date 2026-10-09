@@ -56,3 +56,14 @@ export async function toggleTodoDone(id: string): Promise<Todo> {
     }
     return todo;
 }
+
+export async function deleteTodo(id: string): Promise<void> {
+    const [deleted] = await db
+        .delete(todos)
+        .where(eq(todos.id, id))
+        .returning({ id: todos.id });
+
+    if (!deleted) {
+        throw todoNotFound();
+    }
+}

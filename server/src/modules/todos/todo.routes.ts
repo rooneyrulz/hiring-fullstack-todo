@@ -25,3 +25,8 @@ todoRouter.patch(
     validate({ params: todoIdParamsSchema }),
     todoController.toggleTodoDone,
 );
+todoRouter.delete(
+    "/:id",
+    validate({ params: todoIdParamsSchema }),
+    todoController.deleteTodo,
+);
