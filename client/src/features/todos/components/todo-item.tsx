@@ -14,20 +14,20 @@ export function TodoItem({ todo }: Readonly<{ todo: Todo }>) {
         if (!toggle.isPending) toggle.mutate(todo.id);
     };
     return (
-        <li className="flex items-start gap-3 py-3">
+        <li className="flex animate-row-in items-start gap-3 py-3">
             <Checkbox
                 checked={todo.done}
                 onCheckedChange={handleToggle}
                 aria-labelledby={titleId}
                 aria-busy={toggle.isPending || undefined}
-                className="mt-0.5 size-5 rounded-full transition-colors data-[state=checked]:border-teal-700 data-[state=checked]:bg-teal-700 data-[state=checked]:text-white"
+                className="relative mt-0.5 size-5 rounded-full transition-[background-color,border-color,transform] after:absolute after:-inset-2.5 active:scale-90 data-[state=checked]:border-teal-700 data-[state=checked]:bg-teal-700 data-[state=checked]:text-white"
             />
             <div className="min-w-0 flex-1">
                 <p
                     id={titleId}
                     className={cn(
-                        "font-medium break-words transition-colors",
-                        todo.done && "text-muted-foreground line-through",
+                        "font-medium break-words line-through decoration-transparent transition-colors",
+                        todo.done && "text-muted-foreground decoration-current",
                     )}
                 >
                     {todo.title}
@@ -35,8 +35,8 @@ export function TodoItem({ todo }: Readonly<{ todo: Todo }>) {
                 {todo.description && (
                     <p
                         className={cn(
-                            "mt-1 text-sm break-words whitespace-pre-wrap text-muted-foreground transition-colors",
-                            todo.done && "line-through",
+                            "mt-1 text-sm break-words whitespace-pre-wrap text-muted-foreground line-through decoration-transparent transition-colors",
+                            todo.done && "decoration-current",
                         )}
                     >
                         {todo.description}
@@ -49,7 +49,7 @@ export function TodoItem({ todo }: Readonly<{ todo: Todo }>) {
                 )}
             </div>
 
-            <div className="flex shrink-0 items-center">
+            <div className="-mt-1 flex shrink-0 items-center">
                 <EditTodoDialog todo={todo} />
                 <DeleteTodoDialog todo={todo} />
             </div>

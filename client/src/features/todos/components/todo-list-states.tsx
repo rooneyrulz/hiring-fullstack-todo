@@ -8,9 +8,16 @@ export function TodoListSkeleton() {
         <div role="status" className="divide-y divide-border">
             <span className="sr-only">Loading todos…</span>
             {SKELETON_WIDTHS.map((width) => (
-                <div key={width} aria-hidden="true" className="py-3">
-                    <Skeleton className={`h-5 ${width}`} />
-                    <Skeleton className="mt-2 h-4 w-1/3" />
+                <div
+                    key={width}
+                    aria-hidden="true"
+                    className="flex items-start gap-3 py-3"
+                >
+                    <Skeleton className="mt-0.5 size-5 shrink-0 rounded-full" />
+                    <div className="min-w-0 flex-1">
+                        <Skeleton className={`h-5 ${width}`} />
+                        <Skeleton className="mt-2 h-4 w-1/3" />
+                    </div>
                 </div>
             ))}
         </div>
