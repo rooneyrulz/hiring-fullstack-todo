@@ -1,8 +1,27 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { ApiError } from "@/lib/api-client";
+import {
+    useMutation,
+    useQueryClient,
+    type QueryClient,
+} from "@tanstack/react-query";
+import { toast } from "sonner";
+import { ApiError, getErrorMessage } from "@/lib/api-client";
 import { todoKeys } from "./todo.queries";
 import type { Todo, TodoFormValues } from "./todo.schemas";
-import { createTodo, updateTodo, toggleTodoDone } from "./todos-api";
+import {
+    createTodo,
+    deleteTodo,
+    updateTodo,
+    toggleTodoDone,
+} from "./todos-api";
+
+const toggleMutationKey = ["todos", "toggle"] as const;
+const deleteMutationKey = ["todos", "delete"] as const;
+
+function resyncWhenIdle(queryClient: QueryClient) {
+    if (queryClient.isMutating({ mutationKey: ["todos"] }) === 1) {
+        void queryClient.invalidateQueries({ queryKey: todoKeys.all });
+    }
+}
 
 export function useCreateTodo() {
     const queryClient = useQueryClient();
@@ -36,8 +55,6 @@ export function useUpdateTodo() {
     });
 }
 
-const toggleMutationKey = ["todos", "toggle"] as const;
-
 export function useToggleTodo() {
     const queryClient = useQueryClient();
 
@@ -63,12 +80,57 @@ export function useToggleTodo() {
             if (context?.previousDone !== undefined)
                 setDone(id, context.previousDone);
         },
-        onSettled: () => {
-            if (
-                queryClient.isMutating({ mutationKey: toggleMutationKey }) === 1
-            ) {
-                void queryClient.invalidateQueries({ queryKey: todoKeys.all });
+        onSettled: () => resyncWhenIdle(queryClient),
+    });
+}
+
+export function useDeleteTodo() {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationKey: deleteMutationKey,
+        mutationFn: async (id: string) => {
+            try {
+                await deleteTodo(id);
+            } catch (error) {
+                if (!(error instanceof ApiError && error.status === 404))
+                    throw error;
             }
         },
+        onMutate: async (id) => {
+            await queryClient.cancelQueries({ queryKey: todoKeys.all });
+
+            const todos = queryClient.getQueryData<Todo[]>(todoKeys.all);
+            const index = todos?.findIndex((todo) => todo.id === id) ?? -1;
+            const removed = index >= 0 ? todos?.[index] : undefined;
+
+            if (todos && removed) {
+                queryClient.setQueryData<Todo[]>(
+                    todoKeys.all,
+                    todos.filter((todo) => todo.id !== id),
+                );
+            }
+            return { removed, index };
+        },
+        onError: (error, _id, context) => {
+            const removed = context?.removed;
+            if (removed) {
+                queryClient.setQueryData<Todo[]>(todoKeys.all, (todos) => {
+                    if (!todos || todos.some((todo) => todo.id === removed.id))
+                        return todos;
+                    const restored = [...todos];
+                    restored.splice(
+                        Math.min(context.index, restored.length),
+                        0,
+                        removed,
+                    );
+                    return restored;
+                });
+            }
+            toast.error("Couldn't delete the todo", {
+                description: getErrorMessage(error),
+            });
+        },
+        onSettled: () => resyncWhenIdle(queryClient),
     });
 }

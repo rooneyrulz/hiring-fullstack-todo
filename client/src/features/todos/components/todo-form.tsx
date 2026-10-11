@@ -8,6 +8,7 @@ import {
 } from "@/features/todos/todo.schemas";
 import { getErrorMessage } from "@/lib/api-client";
 import { TodoFields } from "./todo-fields";
+import { NEW_TODO_ID_PREFIX } from "@/features/todos/todo-focus";
 
 export function TodoForm() {
     const {
@@ -38,7 +39,11 @@ export function TodoForm() {
             noValidate
             className="space-y-3"
         >
-            <TodoFields register={register} errors={errors} idPrefix="todo" />
+            <TodoFields
+                register={register}
+                errors={errors}
+                idPrefix={NEW_TODO_ID_PREFIX}
+            />
 
             <div className="flex items-center gap-3">
                 {createTodo.isError && (

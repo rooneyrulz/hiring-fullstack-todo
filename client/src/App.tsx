@@ -1,3 +1,4 @@
+import { Toaster } from "@/components/ui/sonner";
 import { TodoForm } from "@/features/todos/components/todo-form";
 import { TodoList } from "@/features/todos/components/todo-list";
 
@@ -11,6 +12,7 @@ export default function App() {
             <div className="mt-10">
                 <TodoList />
             </div>
+            <Toaster />
         </main>
     );
 }

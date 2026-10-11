@@ -4,6 +4,7 @@ import type { Todo } from "@/features/todos/todo.schemas";
 import { getErrorMessage } from "@/lib/api-client";
 import { cn } from "@/lib/utils";
 import { EditTodoDialog } from "./edit-todo-dialog";
+import { DeleteTodoDialog } from "./delete-todo-dialog";
 
 export function TodoItem({ todo }: Readonly<{ todo: Todo }>) {
     const toggle = useToggleTodo();
@@ -48,7 +49,10 @@ export function TodoItem({ todo }: Readonly<{ todo: Todo }>) {
                 )}
             </div>
 
-            <EditTodoDialog todo={todo} />
+            <div className="flex shrink-0 items-center">
+                <EditTodoDialog todo={todo} />
+                <DeleteTodoDialog todo={todo} />
+            </div>
         </li>
     );
 }
