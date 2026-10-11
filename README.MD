@@ -24,14 +24,14 @@ A small full-stack TODO application: a React frontend, an Express REST API, and 
 
 ```
 .
-├── client/    # React frontend       -> see client/README.md
-├── server/    # Express API          -> see server/README.md
+├── client/    # React frontend       -> see client/README.MD
+├── server/    # Express API          -> see server/README.MD
 ├── package.json
 └── pnpm-workspace.yaml
 ```
 
-- [Client README](./client/README.md): setup, architecture, UI and accessibility notes
-- [Server README](./server/README.md): setup, Neon notes, full API reference, error format
+- [Client README](./client/README.MD): setup, architecture, UI and accessibility notes
+- [Server README](./server/README.MD): setup, Neon notes, full API reference, error format
 
 ## Quick start
 
@@ -55,7 +55,7 @@ pnpm dev:client
 
 Open [http://localhost:5173](http://localhost:5173). The API listens on `http://localhost:4000`.
 
-Where to find a Neon connection string, and why the pooled one is recommended, is explained in the [server README](./server/README.md#database-setup-neon). The client needs no configuration for local development.
+Where to find a Neon connection string, and why the pooled one is recommended, is explained in the [server README](./server/README.MD#database-setup-neon). The client needs no configuration for local development.
 
 pnpm may print a note about ignored build scripts during install. It is harmless for this project.
 
@@ -96,7 +96,7 @@ Package-specific scripts (migrations, preview, Drizzle Studio) are listed in eac
 | PATCH  | `/api/todos/:id/done`   | Toggle the done status          |
 | DELETE | `/api/todos/:id`        | Delete a todo                   |
 
-Request and response shapes, validation rules and error codes are in the [server README](./server/README.md#api-reference).
+Request and response shapes, validation rules and error codes are in the [server README](./server/README.MD#api-reference).
 
 ## Key decisions
 
@@ -116,7 +116,7 @@ Request and response shapes, validation rules and error codes are in the [server
 - `PUT` accepts a partial body (title and/or description), following the brief's wording ("update the title and/or description").
 - Deleted todos are removed permanently.
 - No automated tests are included.
-- Limitations specific to each side are listed in the [client](./client/README.md#assumptions-and-limitations) and [server](./server/README.md#assumptions-and-limitations) READMEs.
+- Limitations specific to each side are listed in the [client](./client/README.MD#assumptions-and-limitations) and [server](./server/README.MD#assumptions-and-limitations) READMEs.
 
 ## Troubleshooting
 

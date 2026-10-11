@@ -1,6 +1,6 @@
 # TODO client
 
-React frontend for the full-stack TODO app. A single-page, mobile-friendly interface for creating, editing, completing and deleting todos, backed by the REST API in [`../server`](../server/README.md).
+React frontend for the full-stack TODO app. A single-page, mobile-friendly interface for creating, editing, completing and deleting todos, backed by the REST API in [`../server`](../server/README.MD).
 
 ## Features
 
@@ -34,7 +34,7 @@ React frontend for the full-stack TODO app. A single-page, mobile-friendly inter
 
 - Node.js 22 or newer
 - pnpm
-- The API running locally (see the [server README](../server/README.md) for database setup)
+- The API running locally (see the [server README](../server/README.MD) for database setup)
 
 ## Getting started
 
