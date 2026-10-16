@@ -7,6 +7,7 @@ import { pinoHttp } from "pino-http";
 import helmet from "helmet";
 import cors from "cors";
 import { logger } from "./lib/logger.js";
+import { requestIdMiddleware } from "./middleware/request-id.js";
 
 export function createApp() {
     const app = express();
@@ -31,6 +32,7 @@ export function createApp() {
     );
 
     app.use(express.json({ limit: "16kb" }));
+    app.use(requestIdMiddleware);
 
     app.get("/api/health", (_req, res) => {
         res.json({ status: "ok", uptime: process.uptime() });

@@ -15,6 +15,9 @@ const envSchema = z.object({
     PORT: z.coerce.number().int().positive().default(4000),
     DATABASE_URL: z.url(),
     CLIENT_ORIGIN: z.url().default("http://localhost:5173"),
+    LOG_LEVEL: z
+        .enum(["error", "warn", "info", "debug", "trace", "silent"])
+        .default("info"),
 });
 
 const parsed = envSchema.safeParse(process.env);
