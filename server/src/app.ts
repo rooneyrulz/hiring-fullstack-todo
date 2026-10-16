@@ -1,13 +1,14 @@
 import express from "express";
+import cors from "cors";
+import helmet from "helmet";
+import { pinoHttp } from "pino-http";
 import { errorHandler } from "./middleware/error-handler.js";
 import { notFoundHandler } from "./middleware/not-found.js";
 import { todoRouter } from "./modules/todos/todo.routes.js";
 import { env } from "./config/env.js";
-import { pinoHttp } from "pino-http";
-import helmet from "helmet";
-import cors from "cors";
 import { logger } from "./lib/logger.js";
 import { requestIdMiddleware } from "./middleware/request-id.js";
+import { limiter } from "./lib/rate-limit.js";
 
 export function createApp() {
     const app = express();
@@ -38,7 +39,7 @@ export function createApp() {
         res.json({ status: "ok", uptime: process.uptime() });
     });
 
-    app.use("/api/todos", todoRouter);
+    app.use("/api/todos", limiter, todoRouter);
 
     app.use(notFoundHandler);
     app.use(errorHandler);
