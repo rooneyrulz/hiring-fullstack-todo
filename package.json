@@ -1,12 +1,13 @@
 {
-    "name": "hiring-fullstack-todo",
-    "private": true,
-    "scripts": {
-        "dev:server": "pnpm --filter server dev",
-        "dev:client": "pnpm --filter client dev",
-        "build": "pnpm -r build",
-        "typecheck": "pnpm -r typecheck",
-        "lint": "pnpm --filter client lint",
-        "format": "prettier --write ."
-    }
+  "name": "hiring-fullstack-todo",
+  "private": true,
+  "scripts": {
+    "dev:server": "pnpm --filter server dev",
+    "dev:client": "pnpm --filter client dev",
+    "build": "pnpm -r build",
+    "test": "pnpm --filter server test",
+    "typecheck": "pnpm -r typecheck",
+    "lint": "pnpm --filter client lint",
+    "format": "prettier --write ."
+  }
 }
