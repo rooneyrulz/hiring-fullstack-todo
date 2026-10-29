@@ -1,0 +1,20 @@
+version: 2
+updates:
+  # One entry covers the whole pnpm workspace.
+  - package-ecosystem: npm
+    directories:
+      - "/"
+      - "/client"
+      - "/server"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 10
+    groups:
+      # Routine updates arrive as one pull request; security fixes are always raised separately.
+      minor-and-patch:
+        update-types: [minor, patch]
+
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly

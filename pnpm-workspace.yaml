@@ -3,3 +3,6 @@ packages:
   - server
 allowBuilds:
   esbuild: true
+overrides:
+  # drizzle-kit's deprecated loader still pins an old esbuild with a known advisory (dev tooling only).
+  "@esbuild-kit/core-utils>esbuild": "^0.25.12"
